@@ -1,0 +1,37 @@
+// Q3: FCFS Scheduling (All AT = 0)
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int bt[50], ct[50], tat[50], wt[50];
+    double sumWT = 0, sumTAT = 0;
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter Burst Time for P%d: ", i + 1);
+        scanf("%d", &bt[i]);
+    }
+
+    int time = 0;
+    printf("\nGantt Chart:\n|");
+    for (int i = 0; i < n; i++) {
+        time += bt[i];
+        ct[i] = time;
+        tat[i] = ct[i];          // AT = 0
+        wt[i] = tat[i] - bt[i];
+        printf(" P%d |", i + 1);
+    }
+
+    printf("\n\nProcess\tBT\tCT\tTAT\tWT\n");
+    for (int i = 0; i < n; i++) {
+        sumWT += wt[i];
+        sumTAT += tat[i];
+        printf("P%d\t%d\t%d\t%d\t%d\n", i + 1, bt[i], ct[i], tat[i], wt[i]);
+    }
+
+    printf("\nAverage Waiting Time   = %.2f\n", sumWT / n);
+    printf("Average Turnaround Time= %.2f\n", sumTAT / n);
+    return 0;
+}
