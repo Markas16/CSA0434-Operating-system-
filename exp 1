@@ -1,0 +1,23 @@
+// Q1: Create a new process and display PID, PPID
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+int main() {
+    pid_t pid = fork();   // create child process
+
+    if (pid < 0) {
+        perror("fork failed");
+        return 1;
+    }
+
+    if (pid == 0) {
+        // Child process
+        printf("CHILD : PID = %d, PPID = %d\n", getpid(), getppid());
+    } else {
+        // Parent process
+        printf("PARENT: PID = %d, PPID = %d, CHILD PID = %d\n", getpid(), getppid(), pid);
+    }
+
+    return 0;
+}
