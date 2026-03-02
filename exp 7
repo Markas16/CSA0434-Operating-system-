@@ -1,0 +1,52 @@
+// Q7: Non-preemptive SJF (All Arrival Time = 0)
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int pid[50], bt[50], ct[50], tat[50], wt[50], used[50] = {0};
+
+    for (int i = 0; i < n; i++) {
+        pid[i] = i + 1;
+        printf("P%d Burst Time: ", pid[i]);
+        scanf("%d", &bt[i]);
+    }
+
+    int time = 0, completed = 0;
+    double sumWT = 0, sumTAT = 0;
+
+    printf("\nGantt Chart:\n|");
+
+    while (completed < n) {
+        int idx = -1, bestBT = 1000000;
+
+        for (int i = 0; i < n; i++) {
+            if (!used[i] && bt[i] < bestBT) {
+                bestBT = bt[i];
+                idx = i;
+            }
+        }
+
+        used[idx] = 1;
+        time += bt[idx];
+        ct[idx] = time;
+        tat[idx] = ct[idx];      // AT = 0
+        wt[idx] = tat[idx] - bt[idx];
+
+        completed++;
+        printf(" P%d |", pid[idx]);
+    }
+
+    printf("\n\nProcess\tBT\tCT\tTAT\tWT\n");
+    for (int i = 0; i < n; i++) {
+        sumWT += wt[i];
+        sumTAT += tat[i];
+        printf("P%d\t%d\t%d\t%d\t%d\n", pid[i], bt[i], ct[i], tat[i], wt[i]);
+    }
+
+    printf("\nAverage Waiting Time   = %.2f\n", sumWT / n);
+    printf("Average Turnaround Time= %.2f\n", sumTAT / n);
+    return 0;
+}
