@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    char data[50];
+
+    fp = fopen("test.txt", "w");
+    printf("Enter data: ");
+    scanf("%s", data);
+    fprintf(fp, "%s", data);
+    fclose(fp);
+
+    fp = fopen("test.txt", "r");
+    fscanf(fp, "%s", data);
+    printf("Read: %s\n", data);
+    fclose(fp);
+
+    return 0;
+}
