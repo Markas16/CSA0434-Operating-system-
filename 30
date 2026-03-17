@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <pthread.h>
+
+void* func(void* arg) {
+    printf("Thread executed\n");
+    pthread_exit(NULL);
+}
+
+int main() {
+    pthread_t t;
+
+    pthread_create(&t, NULL, func, NULL);
+    pthread_join(t, NULL);
+
+    printf("Thread joined\n");
+    return 0;
+}
