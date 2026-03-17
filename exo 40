@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+int main() {
+    int perm;
+
+    printf("Enter permission (e.g. 755): ");
+    scanf("%d",&perm);
+
+    printf("Owner: %d, Group: %d, Others: %d\n",
+           perm/100, (perm/10)%10, perm%10);
+
+    return 0;
+}
